@@ -2,6 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Bautismo Bastian</title>
 <style>
 @font-face {
@@ -36,7 +37,9 @@ body {
 
 /* PORTADA */
 .portada { height: 100vh; }
-.portada img { width: 100%; height: 100%; object-fit: cover; }
+.portada img {
+    object-fit: cover;
+}
 
 /* CONTENIDO */
 .contenido {
@@ -90,12 +93,10 @@ body {
     padding: 10px 0;
     box-sizing: border-box;
 }
-.foto-inner {
-    background: white;
-    padding: 10px 10px 28px 10px;
-    border-radius: 4px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-    transform: rotate(-2deg);
+.foto-inner img { 
+    width: 100%;
+    max-width: 260px;
+    height: auto;
 }
 .foto:nth-child(2) .foto-inner { transform: rotate(2deg); }
 .foto:nth-child(3) .foto-inner { transform: rotate(-1deg); }
@@ -105,13 +106,21 @@ body {
 .foto:nth-child(7) .foto-inner { transform: rotate(-1deg); }
 .foto:nth-child(8) .foto-inner { transform: rotate(1deg); }
 .foto:nth-child(9) .foto-inner { transform: rotate(-2deg); }
-.foto-inner img { width: 260px; height: 200px; object-fit: cover; display: block; }
+.foto-inner img { 
+    width: 100%;
+    max-width: 260px;
+    height: auto;
+    object-fit: cover;
+    display: block;
+}
 
 .img-encima {
     position: absolute;
-    bottom: 435px;
-    left: 300px;
-    width: 1300px;
+    bottom: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 600px;
     z-index: 10;
     filter: drop-shadow(2px 4px 8px rgba(0,0,0,0.5));
     pointer-events: none;
@@ -134,12 +143,12 @@ body {
 .boton {
     background: #ffcc00;
     color: black;
-    padding: 12px;
+    padding: 14px;
     border-radius: 10px;
     cursor: pointer;
     border: none;
     font-family: 'SuperStarfish';
-    font-size: 16px;
+    font-size: 14px;
 }
 
 /* FECHA */
@@ -287,8 +296,8 @@ body {
 #player {
     position: fixed;
     bottom: 16px;
-    left: 16px;
-    transform: none;
+    left: 50%;
+     transform: translateX(-50%);
     width: min(480px, calc(100vw - 32px));
     background: rgba(255,255,255,0.1);
     backdrop-filter: blur(15px);
@@ -429,7 +438,9 @@ body {
 ======================== */
 @media(max-width: 700px) {
     .contenido { flex-direction: column; align-items: center; }
-    .decoracion-lateral { flex-direction: row; }
+    .decoracion-lateral img {
+    width: 80px;
+    }
     .timeline::after { left: 24px; }
     .evento { justify-content: flex-start !important; }
     .evento-icono { left: 24px; }
@@ -442,6 +453,17 @@ body {
         max-width: calc(100% - 70px);
     }
     #player { bottom: 10px; }
+    .caja {
+    padding: 20px 15px;
+    margin: 0 10px;
+    }
+    .verso {
+        font-size: 16px;
+    }
+}
+img {
+    max-width: 100%;
+    height: auto;
 }
 </style>
 </head>
@@ -794,7 +816,9 @@ function mostrarElementos() {
 }
 window.addEventListener('scroll', mostrarElementos);
 mostrarElementos();
+
 </script>
 
 </body>
+
 </html>
