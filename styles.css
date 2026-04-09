@@ -1,0 +1,348 @@
+@font-face {
+    font-family: 'SuperStarfish';
+    src: url('SuperStarfish.ttf') format('truetype');
+}
+
+/* RESET BASE */
+body {
+    margin: 0;
+    font-family: 'SuperStarfish', sans-serif;
+    color: white;
+    background: url("fondo2.jpeg") no-repeat center center;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+/* =========================
+   PANTALLA INICIAL
+========================= */
+.pantalla-inicio {
+    height: 100vh;
+    background: url("fondo.png") no-repeat center center/cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.titulo {
+    position: absolute;
+    top: 20px;
+    font-size: 55px;
+}
+
+/* BOTÓN */
+.boton {
+    position: absolute;
+    bottom: 300px;
+    width: 200px;
+    cursor: pointer;
+    transition: transform 0.4s ease, opacity 0.5s;
+}
+
+.boton:hover {
+    transform: scale(2);
+}
+
+/* NOMBRE */
+.nombre {
+    position: absolute;
+    bottom: 40px;
+    font-size: 60px;
+    color: #a41d1d;
+}
+
+/* INDICADOR */
+.indicador {
+    position: absolute;
+    bottom: 250px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.indicador p {
+    margin-bottom: 8px;
+}
+
+/* FLECHA */
+.flecha {
+    width: 40px;
+    animation: subirBajar 1.5s infinite ease-in-out;
+}
+
+@keyframes subirBajar {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(12px); }
+}
+
+/* DESAPARECER */
+.desaparecer {
+    animation: fadeOut 1s forwards;
+}
+
+@keyframes fadeOut {
+    to {
+        opacity: 0;
+        transform: scale(1.2);
+    }
+}
+
+/* =========================
+   ANIMACIONES GENERALES
+========================= */
+.animar {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.8s ease;
+}
+
+.animar.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* =========================
+   CONTENIDO
+========================= */
+.fondo {
+    min-height: 100vh;
+    padding: 60px 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.caja {
+    max-width: 700px;
+    width: 100%;
+    background: rgba(0,0,0,0.6);
+    padding: 30px;
+    border-radius: 20px;
+    text-align: center;
+}
+
+.verso {
+    font-size: 22px;
+    margin-bottom: 25px;
+}
+
+.titulo-sec {
+    font-size: 28px;
+    margin-bottom: 15px;
+}
+
+/* BOTONES MODERNOS */
+.boton-ui {
+    background: #ffcc00;
+    color: black;
+    padding: 12px 20px;
+    border-radius: 10px;
+    margin: 10px;
+    cursor: pointer;
+    border: none;
+    font-size: 15px;
+    transition: 0.3s;
+}
+
+.boton-ui:hover {
+    transform: scale(1.1);
+}
+
+/* FECHA */
+.fecha-box {
+    max-height: 0;
+    overflow: hidden;
+    transition: 0.5s ease;
+}
+
+.fecha-box.activo {
+    max-height: 200px;
+}
+
+/* =========================
+   TIMELINE PRO
+========================= */
+.timeline {
+    position: relative;
+    max-width: 700px;
+    margin: 60px auto;
+}
+
+/* línea animada */
+.timeline::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0;
+    width: 3px;
+    height: 0;
+    background: #ffcc00;
+    transform: translateX(-50%);
+    transition: height 1s ease;
+}
+
+.timeline.visible::after {
+    height: 100%;
+}
+
+/* EVENTOS */
+.evento {
+    display: flex;
+    align-items: center;
+    margin: 30px 0;
+    position: relative;
+
+    opacity: 0;
+    transform: translateY(30px);
+    transition: 0.6s;
+}
+
+.evento.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* punto */
+.evento::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    width: 14px;
+    height: 14px;
+    background: #ffcc00;
+    border-radius: 50%;
+    z-index: 2;
+}
+
+/* CAJA EVENTO */
+.contenido-item {
+    background: rgba(0,0,0,0.75);
+    padding: 10px 15px;
+    border-radius: 10px;
+    max-width: 45%;
+}
+
+/* IZQUIERDA */
+.left {
+    justify-content: flex-start;
+}
+.left .contenido-item {
+    margin-right: calc(50% + 15px);
+    text-align: right;
+}
+
+/* DERECHA */
+.right {
+    justify-content: flex-end;
+}
+.right .contenido-item {
+    margin-left: calc(50% + 15px);
+}
+
+/* ICONOS ANIMADOS */
+.icono {
+    display: inline-block;
+    margin-right: 6px;
+    animation: columpio 3s infinite ease-in-out;
+    transform-origin: top center;
+}
+
+@keyframes columpio {
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(6deg); }
+    50% { transform: rotate(0deg); }
+    75% { transform: rotate(-6deg); }
+    100% { transform: rotate(0deg); }
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 600px) {
+
+    .timeline::after {
+        left: 20px;
+    }
+
+    .evento {
+        justify-content: flex-start !important;
+    }
+
+    .evento::before {
+        left: 20px;
+    }
+
+    .contenido-item {
+        margin-left: 50px !important;
+        max-width: 80%;
+        text-align: left !important;
+    }
+
+    .titulo {
+        font-size: 35px;
+    }
+
+    .nombre {
+        font-size: 45px;
+    }
+}
+
+#btnMusica {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9999; /* ESTO ES LO QUE TE FALTABA */
+    background: #1db954;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    font-size: 20px;
+    cursor: pointer;
+    box-shadow: 0 0 15px rgba(0,0,0,0.5);
+}
+
+.galeria {
+    overflow: hidden;
+    width: 100%;
+    margin: 20px 0;
+}
+
+.slider {
+    display: flex;
+    transition: transform 0.6s ease;
+}
+
+/* CADA SLIDE OCUPA TODA LA PANTALLA */
+.foto {
+    min-width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+/* MARCO BLANCO */
+.foto-inner {
+    background: white;
+    padding: 10px 10px 25px 10px;
+    border-radius: 5px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+    transform: rotate(-2deg);
+}
+
+.foto:nth-child(2) .foto-inner {
+    transform: rotate(2deg);
+}
+.foto:nth-child(3) .foto-inner {
+    transform: rotate(-1deg);
+}
+
+/* TAMAÑO CONTROLADO */
+.foto-inner img {
+    width: 200px;
+    height: 150px;
+    object-fit: cover;
+    display: block;
+}

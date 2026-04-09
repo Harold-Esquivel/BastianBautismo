@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Bautismo Bastian</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div class="pantalla-inicio">
+
+        <h1 class="titulo">Te Invito A Mi Bautismo</h1>
+
+        <div class="indicador">
+            <p>Pulsa el botón</p>
+            <div class="flecha"></div>
+        </div>
+        
+        <img src="cars.png" class="boton" onclick="entrar()">
+
+        <p class="nombre">Bastian Dumah, Esquivel Esquivel</p>
+
+    </div>
+    <audio id="musica" src="musica.mp3" autoplay></audio>
+    <script>
+        function entrar() {
+            let audio = document.getElementById("musica");
+
+            audio.play();
+        
+            document.querySelector(".pantalla-inicio").classList.add("desaparecer");
+        
+            setTimeout(() => {
+                window.location.href = "principal.html";
+            }, 1000);
+        }
+    </script>
+
+</body>
+</html>
