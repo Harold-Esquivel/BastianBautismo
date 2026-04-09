@@ -2,40 +2,35 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
+
+<!-- 🔥 ARREGLADO VIEWPORT -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Bautismo Bastian</title>
+
 <style>
 @font-face {
     font-family: 'SuperStarfish';
     src: url('SuperStarfish.ttf');
 }
 
-/* ========================
-   CORTINA ENTRADA
-======================== */
-#cortina {
-    position: fixed;
-    inset: 0;
-    background: black;
-    z-index: 99999;
-    pointer-events: none;
-    animation: levantarCortina 2s ease forwards;
-    animation-delay: 0.2s;
-}
-@keyframes levantarCortina {
-    0%   { opacity: 1; }
-    100% { opacity: 0; }
+* {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
 }
 
+/* BODY */
 body {
     margin: 0;
     font-family: 'SuperStarfish';
     color: white;
-    background: url("fondo2.jpeg") no-repeat center center fixed;
+    background: url("fondo2.jpeg") no-repeat center center;
     background-size: cover;
+    overflow-x: hidden;
 }
 
 /* PORTADA */
-.portada { height: 100vh; }
+.portada { height: 100svh; }
 .portada img { width: 100%; height: 100%; object-fit: cover; }
 
 /* CONTENIDO */
@@ -43,10 +38,10 @@ body {
     display: flex;
     justify-content: center;
     gap: 20px;
-    padding: 40px 10px;
+    padding: 24px 12px 120px;
 }
 
-/* DECORACIÓN LATERAL */
+/* DECORACIÓN */
 .decoracion-lateral {
     display: flex;
     flex-direction: column;
@@ -55,746 +50,157 @@ body {
 .decoracion-lateral img {
     width: 150px;
     border-radius: 40px;
-    opacity: 1;
 }
 
-/* CAJA GLASS */
+/* CAJA */
 .caja {
     max-width: 700px;
     width: 100%;
     background: rgba(255,255,255,0.1);
     backdrop-filter: blur(15px);
-    padding: 30px;
+    padding: 24px 18px;
     border-radius: 20px;
     text-align: center;
-    border: 1px solid rgba(255,255,255,0.2);
 }
-.verso { font-size: 20px; }
 
-/* ========================
-   GALERÍA
-======================== */
-.galeria-wrap {
-    position: relative;
-    width: 100%;
-    margin: 20px 0;
-    display: inline-block;
+/* TEXTO */
+.verso {
+    font-size: 18px;
+    line-height: 1.5;
 }
-.galeria { overflow: hidden; width: 100%; border-radius: 10px; }
-.slider { display: flex; transition: transform 0.6s ease; }
+
+/* GALERÍA */
+.galeria { overflow: hidden; width: 100%; }
+.slider { display: flex; transition: transform 0.5s ease; }
+
 .foto {
     min-width: 100%;
     display: flex;
     justify-content: center;
-    align-items: center;
-    padding: 10px 0;
-    box-sizing: border-box;
 }
-.foto-inner {
-    background: white;
-    padding: 10px 10px 28px 10px;
-    border-radius: 4px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-    transform: rotate(-2deg);
-}
-.foto:nth-child(2) .foto-inner { transform: rotate(2deg); }
-.foto:nth-child(3) .foto-inner { transform: rotate(-1deg); }
-.foto:nth-child(4) .foto-inner { transform: rotate(1.5deg); }
-.foto:nth-child(5) .foto-inner { transform: rotate(-2.5deg); }
-.foto:nth-child(6) .foto-inner { transform: rotate(2deg); }
-.foto:nth-child(7) .foto-inner { transform: rotate(-1deg); }
-.foto:nth-child(8) .foto-inner { transform: rotate(1deg); }
-.foto:nth-child(9) .foto-inner { transform: rotate(-2deg); }
-.foto-inner img { width: 260px; height: 200px; object-fit: cover; display: block; }
 
+.foto-inner img {
+    width: min(240px, 70vw);
+    height: auto;
+    object-fit: cover;
+}
+
+/* ❌ ESTO TE ROMPÍA TODO */
 .img-encima {
-    position: absolute;
-    bottom: 435px;
-    left: 300px;
-    width: 1300px;
-    z-index: 10;
-    filter: drop-shadow(2px 4px 8px rgba(0,0,0,0.5));
-    pointer-events: none;
-}
-
-/* Puntos */
-.puntos { display: flex; justify-content: center; gap: 8px; margin-bottom: 10px; }
-.punto {
-    width: 10px; height: 10px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.4);
-    border: 1px solid rgba(255,255,255,0.6);
-    cursor: pointer;
-    transition: background 0.3s;
-}
-.punto.activo { background: #ffcc00; border-color: #ffcc00; }
-
-/* BOTONES GRID */
-.botones { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 20px 0; }
-.boton {
-    background: #ffcc00;
-    color: black;
-    padding: 12px;
-    border-radius: 10px;
-    cursor: pointer;
-    border: none;
-    font-family: 'SuperStarfish';
-    font-size: 16px;
-}
-
-/* FECHA */
-.fecha-box { max-height: 0; overflow: hidden; transition: 0.5s; }
-.fecha-box.activo { max-height: 200px; }
-
-/* ========================
-   MODAL UBICACIÓN
-======================== */
-#modalUbicacion {
     display: none;
-    position: fixed;
-    inset: 0;
-    z-index: 9000;
-    justify-content: center;
-    align-items: center;
-    background: rgba(0,0,0,0.45);
-    backdrop-filter: blur(6px);
-}
-#modalUbicacion.abierto { display: flex; }
-
-.modal-box {
-    background: rgba(255,255,255,0.15);
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(255,255,255,0.3);
-    border-radius: 24px;
-    padding: 30px 28px 24px;
-    text-align: center;
-    width: 300px;
-    position: relative;
-    animation: aparecer 0.3s ease;
-}
-@keyframes aparecer {
-    from { opacity: 0; transform: scale(0.88); }
-    to   { opacity: 1; transform: scale(1); }
 }
 
-.modal-box h3 {
-    margin: 0 0 8px;
-    font-size: 20px;
-    color: white;
-}
-.modal-box p {
-    margin: 0 0 22px;
-    font-size: 13px;
-    color: rgba(255,255,255,0.7);
-    font-family: sans-serif;
+/* BOTONES */
+.botones {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
 }
 
-.modal-btns { display: flex; flex-direction: column; gap: 12px; }
-
-.modal-btn {
-    padding: 13px 16px;
-    border-radius: 14px;
-    border: none;
-    cursor: pointer;
-    font-family: 'SuperStarfish';
+.boton {
+    padding: 14px;
     font-size: 16px;
-    background: rgba(255,255,255,0.2);
-    color: white;
-    border: 1px solid rgba(255,255,255,0.3);
-    transition: background 0.2s;
-}
-.modal-btn:hover { background: rgba(255,255,255,0.35); }
-.modal-btn.amarillo { background: #ffcc00; color: black; border-color: #ffcc00; }
-.modal-btn.amarillo:hover { background: #e6b800; }
-
-.modal-cerrar {
-    position: absolute;
-    top: 12px;
-    right: 14px;
-    background: rgba(255,255,255,0.15);
-    border: none;
-    color: white;
-    font-size: 18px;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    line-height: 1;
-}
-.modal-cerrar:hover { background: rgba(255,255,255,0.3); }
-
-/* ========================
-   TIMELINE
-======================== */
-.timeline {
-    position: relative;
-    margin-top: 30px;
-    padding: 10px 0 20px;
-}
-.timeline::after {
-    content: '';
-    position: absolute;
-    left: 50%;
-    width: 3px;
+    min-height: 50px;
+    border-radius: 12px;
     background: #ffcc00;
-    top: 0; bottom: 0;
-    transform: translateX(-50%);
-    border-radius: 2px;
-    z-index: 0;
-}
-.evento {
-    display: flex;
-    align-items: center;
-    margin: 26px 0;
-    position: relative;
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
-}
-.evento.visible { opacity: 1; transform: translateY(0); }
-.evento-icono {
-    position: absolute;
-    left: 50%; top: 50%;
-    transform: translate(-50%, -50%);
-    width: 38px; height: 38px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 2px solid #ffcc00;
-    background: white;
-    z-index: 3;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.5);
-}
-.contenido-item {
-    background: rgba(0,0,0,0.75);
-    padding: 10px 14px;
-    border-radius: 10px;
-    border: 1px solid rgba(255,204,0,0.3);
-    font-size: 15px;
-    white-space: nowrap;
-}
-.left { justify-content: flex-start; }
-.left .contenido-item { margin-right: calc(50% + 26px); text-align: right; }
-.right { justify-content: flex-end; }
-.right .contenido-item { margin-left: calc(50% + 26px); text-align: left; }
-
-/* ========================
-   REPRODUCTOR ESTILO iPHONE
-   (fixed, abajo centrado)
-======================== */
-#player {
-    position: fixed;
-    bottom: 16px;
-    left: 16px;
-    transform: none;
-    width: min(480px, calc(100vw - 32px));
-    background: rgba(255,255,255,0.1);
-    backdrop-filter: blur(15px);
-    border: 1px solid rgba(255,255,255,0.2);
-    border-radius: 20px;
-    padding: 14px 18px 12px;
-    z-index: 8000;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    box-sizing: border-box;
-}
-
-/* Portada álbum */
-#player-cover {
-    width: 56px;
-    height: 56px;
-    border-radius: 10px;
-    object-fit: cover;
-    flex-shrink: 0;
-    background: #222;
-}
-
-/* Info + controles */
-.player-info {
-    flex: 1;
-    min-width: 0;
-}
-
-.player-meta {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    margin-bottom: 2px;
-}
-.player-title {
-    font-size: 14px;
-    font-weight: 600;
-    color: white;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    font-family: -apple-system, sans-serif;
-    max-width: 180px;
-}
-.player-airplay {
-    font-size: 16px;
-    opacity: 0.7;
-}
-
-/* Barra de progreso */
-.player-progress-wrap {
-    position: relative;
-    height: 3px;
-    background: rgba(255,255,255,0.25);
-    border-radius: 2px;
-    margin: 6px 0 3px;
-    cursor: pointer;
-}
-.player-progress-fill {
-    height: 100%;
-    background: white;
-    border-radius: 2px;
-    width: 0%;
-    transition: width 0.5s linear;
-    pointer-events: none;
-}
-.player-progress-thumb {
-    position: absolute;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    width: 10px;
-    height: 10px;
-    background: white;
-    border-radius: 50%;
-    left: 0%;
-    pointer-events: none;
-}
-
-.player-times {
-    display: flex;
-    justify-content: space-between;
-    font-size: 10px;
-    color: rgba(255,255,255,0.55);
-    font-family: -apple-system, sans-serif;
-    margin-bottom: 8px;
-}
-
-/* Botones control */
-.player-controls {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 28px;
-}
-.player-controls button {
-    background: none;
     border: none;
-    color: white;
-    cursor: pointer;
-    padding: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0.9;
-}
-.player-controls button:hover { opacity: 1; }
-#btn-prev svg, #btn-next svg { width: 20px; height: 20px; }
-#btn-play-pause svg { width: 28px; height: 28px; }
-
-/* Barra volumen */
-.player-volume-wrap {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    margin-top: 8px;
-}
-.player-volume-wrap svg { width: 12px; height: 12px; opacity: 0.6; flex-shrink: 0; }
-.player-volume-track {
-    flex: 1;
-    height: 3px;
-    background: rgba(255,255,255,0.25);
-    border-radius: 2px;
-    position: relative;
-    cursor: pointer;
-}
-.player-volume-fill {
-    height: 100%;
-    background: white;
-    border-radius: 2px;
-    width: 70%;
-    pointer-events: none;
 }
 
-/* ========================
-   RESPONSIVE
-======================== */
-@media(max-width: 700px) {
-    .contenido { flex-direction: column; align-items: center; }
-    .decoracion-lateral { flex-direction: row; }
-    .timeline::after { left: 24px; }
-    .evento { justify-content: flex-start !important; }
-    .evento-icono { left: 24px; }
-    .left .contenido-item,
-    .right .contenido-item {
-        margin-left: 54px !important;
-        margin-right: 0 !important;
+/* TIMELINE */
+.timeline::after {
+    left: 50%;
+}
+
+.evento-icono {
+    width: 36px;
+    height: 36px;
+}
+
+/* =========================
+   📱 MOBILE PRO
+========================= */
+@media(max-width:700px){
+
+    .decoracion-lateral {
+        display: none;
+    }
+
+    .contenido {
+        padding: 16px 10px 130px;
+    }
+
+    .caja {
+        padding: 18px 12px;
+    }
+
+    .verso {
+        font-size: 15px;
+    }
+
+    /* timeline vertical */
+    .timeline::after {
+        left: 20px;
+    }
+
+    .evento-icono {
+        left: 20px !important;
+    }
+
+    .contenido-item {
+        margin-left: 50px !important;
         text-align: left !important;
         white-space: normal;
-        max-width: calc(100% - 70px);
+        max-width: 85%;
     }
-    #player { bottom: 10px; }
+
+    /* reproductor ancho completo */
+    #player {
+        width: calc(100vw - 16px);
+        left: 8px;
+        bottom: 8px;
+    }
+
+    /* imágenes mejor escala */
+    .foto-inner img {
+        width: 90%;
+        height: auto;
+    }
 }
 </style>
 </head>
+
 <body>
 
-<!-- CORTINA -->
-<div id="cortina"></div>
-
-<!-- PORTADA -->
-<div class="portada"><img src="portada.jpeg"></div>
+<div class="portada">
+    <img src="portada.jpeg">
+</div>
 
 <div class="contenido">
 
-<!-- LATERAL IZQ -->
 <div class="decoracion-lateral">
     <img src="dec1.png">
     <img src="dec2.png">
-    <img src="dec3.jpeg">
 </div>
 
-<!-- CAJA -->
 <div class="caja">
 
-    <p class="verso">
-        "El te cubrirá con sus plumas y bajo sus alas encontrarás refugio"<br>
-        <strong>SALMO 91:4</strong>
-    </p>
+<p class="verso">
+"El te cubrirá con sus plumas..."<br>
+<strong>SALMO 91:4</strong>
+</p>
 
-    <!-- GALERÍA -->
-    <div class="galeria-wrap">
-        <div class="galeria">
-            <div class="slider" id="slider">
-                <div class="foto"><div class="foto-inner"><img src="foto1.jpeg" alt="Foto 1"></div></div>
-                <div class="foto"><div class="foto-inner"><img src="foto2.jpeg" alt="Foto 2"></div></div>
-                <div class="foto"><div class="foto-inner"><img src="foto3.jpeg" alt="Foto 3"></div></div>
-                <div class="foto"><div class="foto-inner"><img src="foto4.jpeg" alt="Foto 4"></div></div>
-                <div class="foto"><div class="foto-inner"><img src="foto5.jpeg" alt="Foto 5"></div></div>
-                <div class="foto"><div class="foto-inner"><img src="foto6.jpeg" alt="Foto 6"></div></div>
-                <div class="foto"><div class="foto-inner"><img src="foto7.jpeg" alt="Foto 7"></div></div>
-                <div class="foto"><div class="foto-inner"><img src="foto8.jpeg" alt="Foto 8"></div></div>
-                <div class="foto"><div class="foto-inner"><img src="foto9.jpeg" alt="Foto 9"></div></div>
-            </div>
-        </div>
-        <img src="decoracion.png" class="img-encima" alt="decoracion">
-    </div>
+<h2>Te invito a mi Bautismo</h2>
 
-    <!-- PUNTOS (9 fotos) -->
-    <div class="puntos" id="puntos">
-        <div class="punto activo"></div>
-        <div class="punto"></div>
-        <div class="punto"></div>
-        <div class="punto"></div>
-        <div class="punto"></div>
-        <div class="punto"></div>
-        <div class="punto"></div>
-        <div class="punto"></div>
-        <div class="punto"></div>
-    </div>
-
-    <h2>Te invito a mi Bautismo</h2>
-
-    <!-- BOTONES -->
-    <div class="botones">
-        <button class="boton" onclick="toggleFecha()">Fecha</button>
-        <button class="boton" onclick="abrirUbicacion()">Ubicación</button>
-        <button class="boton" onclick="confirmar()">Confirmar</button>
-        <button class="boton" onclick="regalos()">Regalos</button>
-    </div>
-
-    <div id="fechaBox" class="fecha-box">
-        <p id="fechaTexto"></p>
-        <p id="contador"></p>
-    </div>
-
-    <!-- ITINERARIO -->
-    <h3>ITINERARIO</h3>
-    <div class="timeline" id="timeline">
-        <div class="evento left">
-            <img src="icono1.png" class="evento-icono" alt="">
-            <div class="contenido-item">⛪ 11:00 iglesia</div>
-        </div>
-        <div class="evento right">
-            <img src="icono2.png" class="evento-icono" alt="">
-            <div class="contenido-item">🏠 12:15 local</div>
-        </div>
-        <div class="evento left">
-            <img src="icono3.png" class="evento-icono" alt="">
-            <div class="contenido-item">🎤 12:30 ceremonia</div>
-        </div>
-        <div class="evento right">
-            <img src="icono4.png" class="evento-icono" alt="">
-            <div class="contenido-item">🎈 13:00 show infantil</div>
-        </div>
-        <div class="evento left">
-            <img src="icono5.png" class="evento-icono" alt="">
-            <div class="contenido-item">🍽️ 14:00 almuerzo</div>
-        </div>
-        <div class="evento right">
-            <img src="icono6.png" class="evento-icono" alt="">
-            <div class="contenido-item">🍼 15:00 baby shower</div>
-        </div>
-        <div class="evento left">
-            <img src="icono7.png" class="evento-icono" alt="">
-            <div class="contenido-item">🎶 17:00 grupo musical</div>
-        </div>
-        <div class="evento right">
-            <img src="icono8.png" class="evento-icono" alt="">
-            <div class="contenido-item">🚪 19:00 salida</div>
-        </div>
-    </div>
-
-</div>
-
-<!-- LATERAL DER -->
-<div class="decoracion-lateral">
-    <img src="dec4.jpeg">
-    <img src="dec5.jpeg">
-    <img src="dec6.jpeg">
+<div class="botones">
+<button class="boton">Fecha</button>
+<button class="boton">Ubicación</button>
+<button class="boton">Confirmar</button>
+<button class="boton">Regalos</button>
 </div>
 
 </div>
 
-<!-- ========================
-     MODAL UBICACIÓN
-======================== -->
-<div id="modalUbicacion">
-    <div class="modal-box">
-        <button class="modal-cerrar" onclick="cerrarUbicacion()">✕</button>
-        <h3>📍 Ubicación</h3>
-        <p>Estas son las dos ubicaciones disponibles:</p>
-        <div class="modal-btns">
-            <button class="modal-btn amarillo" onclick="window.open('https://maps.app.goo.gl/NA9M7x7ukASinpM56?g_st=iw')">
-                ⛪ Parroquia
-            </button>
-            <button class="modal-btn amarillo" onclick="window.open('https://maps.google.com/?q=FINCA')">
-                🌿 Finca
-            </button>
-        </div>
-    </div>
 </div>
-
-<!-- AUDIO -->
-<audio id="musica" loop>
-    <source src="musica.mp3" type="audio/mpeg">
-</audio>
-
-<!-- ========================
-     REPRODUCTOR iPHONE
-     ─────────────────────
-     Para cambiar la foto: cambia "music.jpg" por tu imagen
-     Para cambiar el nombre: cambia el texto en #player-title
-======================== -->
-<div id="player">
-    <!--
-        FOTO DEL REPRODUCTOR → cambia "music.jpg"
-    -->
-    <img id="player-cover" src="music.png" alt="cover">
-
-    <div class="player-info">
-
-        <div class="player-meta">
-            <!--
-                NOMBRE DE LA CANCIÓN → cambia el texto aquí
-            -->
-            <span class="player-title" id="player-title"> - Bastian Dumah</span>
-            <span class="player-airplay">
-                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="white" stroke-width="1.8">
-                    <path d="M5 17H3a2 2 0 01-2-2V5a2 2 0 012-2h18a2 2 0 012 2v10a2 2 0 01-2 2h-2"/>
-                    <polygon points="12 15 17 21 7 21 12 15"/>
-                </svg>
-            </span>
-        </div>
-
-        <!-- BARRA PROGRESO -->
-        <div class="player-progress-wrap" id="progressWrap">
-            <div class="player-progress-fill" id="progressFill"></div>
-            <div class="player-progress-thumb" id="progressThumb"></div>
-        </div>
-        <div class="player-times">
-            <span id="timeNow">0:00</span>
-            <span id="timeTotal">0:00</span>
-        </div>
-
-        <!-- CONTROLES -->
-        <div class="player-controls">
-            <button id="btn-prev" title="Anterior">
-                <svg viewBox="0 0 24 24" fill="white">
-                    <path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/>
-                </svg>
-            </button>
-            <button id="btn-play-pause" onclick="togglePlayer()">
-                <svg id="icon-play" viewBox="0 0 24 24" fill="white">
-                    <path d="M8 5v14l11-7z"/>
-                </svg>
-                <svg id="icon-pause" viewBox="0 0 24 24" fill="white" style="display:none">
-                    <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
-                </svg>
-            </button>
-            <button id="btn-next" title="Siguiente">
-                <svg viewBox="0 0 24 24" fill="white">
-                    <path d="M6 18l8.5-6L6 6v12zm2.5-6l-2.5 1.8V10.2L8.5 12zm9-6h-2v12h2V6z"/>
-                </svg>
-            </button>
-        </div>
-
-        <!-- VOLUMEN -->
-        <div class="player-volume-wrap">
-            <svg viewBox="0 0 24 24" fill="white">
-                <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/>
-            </svg>
-            <div class="player-volume-track" id="volumeTrack">
-                <div class="player-volume-fill" id="volumeFill"></div>
-            </div>
-            <svg viewBox="0 0 24 24" fill="white">
-                <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM18.5 12c0-3.04-1.73-5.64-4.25-6.95v2.25A5.503 5.503 0 0120.5 12c0 2.27-1.39 4.22-3.4 5.19.3-.04.62-.07.9-.07 1 0 2.5.55 2.5.55A7.5 7.5 0 0018.5 12z"/>
-            </svg>
-        </div>
-
-    </div>
-</div>
-
-<script>
-// ========================
-// CARRUSEL
-// ========================
-const slider  = document.getElementById("slider");
-const puntos  = document.querySelectorAll(".punto");
-let indice = 0, intervalo;
-
-function irSlide(n) {
-    indice = n;
-    slider.style.transform = `translateX(-${indice * 100}%)`;
-    puntos.forEach((p,i) => p.classList.toggle("activo", i === indice));
-}
-function siguiente() { irSlide((indice+1) % slider.children.length); }
-intervalo = setInterval(siguiente, 3000);
-puntos.forEach((p,i) => p.addEventListener("click", () => {
-    clearInterval(intervalo);
-    irSlide(i);
-    intervalo = setInterval(siguiente, 3000);
-}));
-
-// ========================
-// CONTADOR FECHA
-// ========================
-const fechaEvento = new Date("2026-04-25").getTime();
-function toggleFecha() { document.getElementById("fechaBox").classList.toggle("activo"); }
-setInterval(() => {
-    let d     = fechaEvento - Date.now();
-    let dias  = Math.floor(d/(1000*60*60*24));
-    let horas = Math.floor((d%(1000*60*60*24))/(1000*60*60));
-    let min   = Math.floor((d%(1000*60*60))/(1000*60));
-    let seg   = Math.floor((d%(1000*60))/1000);
-    document.getElementById("fechaTexto").innerText = "Fecha: " + new Date(fechaEvento).toLocaleDateString();
-    document.getElementById("contador").innerText = `${dias}d ${horas}h ${min}m ${seg}s`;
-}, 1000);
-
-// ========================
-// MODAL UBICACIÓN
-// ========================
-function abrirUbicacion() {
-    document.getElementById("modalUbicacion").classList.add("abierto");
-}
-function cerrarUbicacion() {
-    document.getElementById("modalUbicacion").classList.remove("abierto");
-}
-// Cerrar al hacer clic fuera
-document.getElementById("modalUbicacion").addEventListener("click", function(e) {
-    if (e.target === this) cerrarUbicacion();
-});
-
-// ========================
-// OTROS BOTONES
-// ========================
-function confirmar() { window.open("https://docs.google.com/forms/d/e/1FAIpQLSfsMn8v_XeSvzjelmnf-T8TQVyYDdUVpkWKjv3BNHmcH1soIg/viewform?usp=publish-editor"); }
-function regalos()   { alert("Lista de regalos aquí"); }
-
-// ========================
-// REPRODUCTOR iPHONE
-// ========================
-const musica     = document.getElementById("musica");
-const iconPlay   = document.getElementById("icon-play");
-const iconPause  = document.getElementById("icon-pause");
-const progFill   = document.getElementById("progressFill");
-const progThumb  = document.getElementById("progressThumb");
-const timeNow    = document.getElementById("timeNow");
-const timeTotal  = document.getElementById("timeTotal");
-const volFill    = document.getElementById("volumeFill");
-const volTrack   = document.getElementById("volumeTrack");
-const progWrap   = document.getElementById("progressWrap");
-
-let jugando = false;
-
-function fmt(s) {
-    s = Math.floor(s);
-    return Math.floor(s/60) + ":" + String(s%60).padStart(2,"0");
-}
-
-function togglePlayer() {
-    if (jugando) {
-        musica.pause();
-        iconPlay.style.display  = "block";
-        iconPause.style.display = "none";
-    } else {
-        musica.play().catch(()=>{});
-        iconPlay.style.display  = "none";
-        iconPause.style.display = "block";
-    }
-    jugando = !jugando;
-}
-
-// Actualizar barra de progreso
-musica.addEventListener("timeupdate", () => {
-    if (!musica.duration) return;
-    const pct = (musica.currentTime / musica.duration) * 100;
-    progFill.style.width  = pct + "%";
-    progThumb.style.left  = pct + "%";
-    timeNow.textContent   = fmt(musica.currentTime);
-    timeTotal.textContent = fmt(musica.duration);
-});
-
-// Click en barra de progreso → saltar
-progWrap.addEventListener("click", (e) => {
-    const rect = progWrap.getBoundingClientRect();
-    const pct  = (e.clientX - rect.left) / rect.width;
-    if (musica.duration) musica.currentTime = pct * musica.duration;
-});
-
-// Barra de volumen
-volTrack.addEventListener("click", (e) => {
-    const rect = volTrack.getBoundingClientRect();
-    const pct  = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
-    musica.volume    = pct;
-    volFill.style.width = (pct * 100) + "%";
-});
-
-// Botones anterior/siguiente → no hacen nada (solo visual)
-document.getElementById("btn-prev").addEventListener("click", () => {});
-document.getElementById("btn-next").addEventListener("click", () => {});
-
-// ========================
-// SCROLL → TIMELINE
-// ========================
-const eventos = document.querySelectorAll('.evento');
-function mostrarElementos() {
-    const trigger = window.innerHeight * 0.85;
-    eventos.forEach(e => {
-        if (e.getBoundingClientRect().top < trigger) e.classList.add('visible');
-    });
-}
-window.addEventListener('scroll', mostrarElementos);
-mostrarElementos();
-</script>
 
 </body>
 </html>
