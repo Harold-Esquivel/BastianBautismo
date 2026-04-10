@@ -10,9 +10,6 @@
     src: url('SuperStarfish.ttf');
 }
 
-/* ========================
-   CORTINA ENTRADA
-======================== */
 #cortina {
     position: fixed;
     inset: 0;
@@ -37,13 +34,13 @@ body {
     flex-direction: column;
 }
 
-/* PORTADA */
-.portada { height: 100vh; }
+.portada { 
+    height: 100vh;
+    display: flex;}
 .portada img {
     object-fit: cover;
 }
 
-/* CONTENIDO */
 .contenido {
     display: flex;
     justify-content: center;
@@ -51,19 +48,6 @@ body {
     padding: 40px 10px;
 }
 
-/* DECORACIÓN LATERAL */
-.decoracion-lateral {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-.decoracion-lateral img {
-    width: 150px;
-    border-radius: 40px;
-    opacity: 1;
-}
-
-/* CAJA GLASS */
 .caja {
     max-width: 700px;
     width: 100%;
@@ -76,9 +60,6 @@ body {
 }
 .verso { font-size: 20px; }
 
-/* ========================
-   GALERÍA
-======================== */
 .galeria-wrap {
     position: relative;
     width: 100%;
@@ -128,7 +109,6 @@ body {
     pointer-events: none;
 }
 
-/* Puntos */
 .puntos { display: flex; justify-content: center; gap: 8px; margin-bottom: 10px; }
 .punto {
     width: 10px; height: 10px;
@@ -140,7 +120,6 @@ body {
 }
 .punto.activo { background: #ffcc00; border-color: #ffcc00; }
 
-/* BOTONES GRID */
 .botones { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 20px 0; }
 .boton {
     background: #ffcc00;
@@ -153,13 +132,9 @@ body {
     font-size: 14px;
 }
 
-/* FECHA */
 .fecha-box { max-height: 0; overflow: hidden; transition: 0.5s; }
 .fecha-box.activo { max-height: 200px; }
 
-/* ========================
-   MODAL UBICACIÓN
-======================== */
 #modalUbicacion {
     display: none;
     position: fixed;
@@ -172,8 +147,6 @@ body {
 }
 
 #modalUbicacion.abierto { display: flex; }
-
-
 
 #modalFecha {
     display: none;
@@ -188,6 +161,19 @@ body {
 #modalFecha.abierto {
     display: flex;
 }
+
+#modalRegalos {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9000;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0,0,0,0.45);
+    backdrop-filter: blur(6px);
+}
+
+#modalRegalos.abierto { display: flex; }
 
 .modal-box {
     background: rgba(255,255,255,0.15);
@@ -254,9 +240,6 @@ body {
 }
 .modal-cerrar:hover { background: rgba(255,255,255,0.3); }
 
-/* ========================
-   TIMELINE
-======================== */
 .timeline {
     position: relative;
     margin-top: 30px;
@@ -331,10 +314,6 @@ body {
     margin-left: 60px;
 }
 
-/* ========================
-   REPRODUCTOR ESTILO iPHONE
-   (fixed, abajo centrado)
-======================== */
 #player {
     position: fixed;
     bottom: 16px;
@@ -354,7 +333,6 @@ body {
     box-sizing: border-box;
 }
 
-/* Portada álbum */
 #player-cover {
     width: 56px;
     height: 56px;
@@ -364,7 +342,6 @@ body {
     background: #222;
 }
 
-/* Info + controles */
 .player-info {
     flex: 1;
     min-width: 0;
@@ -391,7 +368,6 @@ body {
     opacity: 0.7;
 }
 
-/* Barra de progreso */
 .player-progress-wrap {
     position: relative;
     height: 3px;
@@ -429,7 +405,6 @@ body {
     margin-bottom: 8px;
 }
 
-/* Botones control */
 .player-controls {
     display: flex;
     justify-content: center;
@@ -451,7 +426,6 @@ body {
 #btn-prev svg, #btn-next svg { width: 20px; height: 20px; }
 #btn-play-pause svg { width: 28px; height: 28px; }
 
-/* Barra volumen */
 .player-volume-wrap {
     display: flex;
     align-items: center;
@@ -475,9 +449,6 @@ body {
     pointer-events: none;
 }
 
-/* ========================
-   RESPONSIVE
-======================== */
 @media(max-width: 700px) {
 
     .contenido { 
@@ -489,19 +460,32 @@ body {
         width: 80px;
     }
 
+    /* Línea vertical alineada a la izquierda */
+    .timeline::after {
+        left: 24px;
+        transform: none;
+    }
+
+    /* Todos los eventos apuntan a la izquierda */
+    .evento {
+        justify-content: flex-start !important;
+    }
+
+    /* Icono sobre la línea (izquierda) */
+    .evento-icono {
+        left: 5px;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    /* Caja de contenido con margen desde el icono */
     .contenido-item {
-        width: 70%;
-        font-size: 14px;
-    }
-
-    .left .contenido-item {
-        margin-right: 50px;
-        text-align: right;
-    }
-
-    .right .contenido-item {
-        margin-left: 50px;
-        text-align: left;
+        width: calc(100% - 70px);
+        max-width: none;
+        font-size: 13px;
+        margin-left: 60px !important;
+        margin-right: 0 !important;
+        text-align: left !important;
     }
 
     #player { bottom: 10px; }
@@ -515,6 +499,7 @@ body {
         font-size: 16px;
     }
 }
+
 img {
     max-width: 100%;
     height: auto;
@@ -523,22 +508,12 @@ img {
 </head>
 <body>
 
-<!-- CORTINA -->
 <div id="cortina"></div>
 
-<!-- PORTADA -->
 <div class="portada"><img src="portada.jpeg"></div>
 
 <div class="contenido">
 
-<!-- LATERAL IZQ -->
-<div class="decoracion-lateral">
-    <img src="dec1.png">
-    <img src="dec2.png">
-    <img src="dec3.jpeg">
-</div>
-
-<!-- CAJA -->
 <div class="caja">
 
     <p class="verso">
@@ -546,7 +521,6 @@ img {
         <strong>SALMO 91:4</strong>
     </p>
 
-    <!-- GALERÍA -->
     <div class="galeria-wrap">
         <div class="galeria">
             <div class="slider" id="slider">
@@ -565,12 +539,11 @@ img {
 
     <h2>Te invito a mi Bautismo</h2>
 
-    <!-- BOTONES -->
     <div class="botones">
         <button class="boton" onclick="abrirFecha()">Fecha</button>
         <button class="boton" onclick="abrirUbicacion()">Ubicación</button>
         <button class="boton" onclick="confirmar()">Confirmar</button>
-        <button class="boton" onclick="regalos()">Regalos</button>
+        <button class="boton" onclick="abrirRegalos()">Regalos</button>
     </div>
 
     <div id="fechaBox" class="fecha-box">
@@ -578,7 +551,6 @@ img {
         <p id="contador"></p>
     </div>
 
-    <!-- ITINERARIO -->
     <h3>ITINERARIO</h3>
     <div class="timeline" id="timeline">
         <div class="evento left">
@@ -610,25 +582,13 @@ img {
             <div class="contenido-item">🎶 17:00 grupo musical</div>
         </div>
         <div class="evento right">
-            <img src="trofeo.png".png" class="evento-icono" alt="">
+            <img src="trofeo.png" class="evento-icono" alt="">
             <div class="contenido-item">🚪 19:00 salida</div>
         </div>
     </div>
 
 </div>
 
-<!-- LATERAL DER -->
-<div class="decoracion-lateral">
-    <img src="dec4.jpeg">
-    <img src="dec5.jpeg">
-    <img src="dec6.jpeg">
-</div>
-
-</div>
-
-<!-- ========================
-     MODAL UBICACIÓN
-======================== -->
 <div id="modalUbicacion">
     <div class="modal-box">
         <button class="modal-cerrar" onclick="cerrarUbicacion()">✕</button>
@@ -645,14 +605,18 @@ img {
     </div>
 </div>
 
-<!-- ========================
-     MODAL UBICACIÓN
-======================== -->
-<div id="modalUbicacion">
-    ...
+<div id="modalRegalos">
+    <div class="modal-box">
+        <button class="modal-cerrar" onclick="cerrarRegalos()">✕</button>
+        <h3>🎁 Regalos</h3>
+        <div class="modal-btns">
+            <body>
+                Para Bastian Dumah: Cualquier regalo que venga del corazón será bien recibido <br><br> Para Vannia: ropa de nena hasta los 2 años o pañales M o G
+            </body>
+        </div>
+    </div>
 </div>
 
-<!-- 👇 AQUÍ PEGAS EL MODAL FECHA -->
 <div id="modalFecha">
     <div class="modal-box">
         <button class="modal-cerrar" onclick="cerrarFecha()">✕</button>
@@ -663,7 +627,6 @@ img {
     </div>
 </div>
 
-<!-- AUDIO -->
 <audio id="musica" loop>
     <source src="musica.mp3" type="audio/mpeg">
 </audio>
@@ -692,7 +655,6 @@ img {
             <span id="timeTotal">0:00</span>
         </div>
 
-        <!-- CONTROLES -->
         <div class="player-controls">
             <button id="btn-prev" title="Anterior">
                 <svg viewBox="0 0 24 24" fill="white">
@@ -714,7 +676,6 @@ img {
             </button>
         </div>
 
-        <!-- VOLUMEN -->
         <div class="player-volume-wrap">
             <svg viewBox="0 0 24 24" fill="white">
                 <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/>
@@ -731,9 +692,7 @@ img {
 </div>
 
 <script>
-// ========================
-// CARRUSEL
-// ========================
+
 const slider  = document.getElementById("slider");
 const puntos  = document.querySelectorAll(".punto");
 let indice = 0, intervalo;
@@ -751,9 +710,6 @@ puntos.forEach((p,i) => p.addEventListener("click", () => {
     intervalo = setInterval(siguiente, 3000);
 }));
 
-// ========================
-// CONTADOR FECHA
-// ========================
 const fechaEvento = new Date("2026-04-25").getTime();
 function toggleFecha() { document.getElementById("fechaBox").classList.toggle("activo"); }
 setInterval(() => {
@@ -763,11 +719,9 @@ setInterval(() => {
     let min   = Math.floor((d%(1000*60*60))/(1000*60));
     let seg   = Math.floor((d%(1000*60))/1000);
 
-    // 🔥 CREAS LAS VARIABLES AQUÍ
     let fechaTexto = "Fecha: " + new Date(fechaEvento).toLocaleDateString();
     let contadorTexto = `${dias}d ${horas}h ${min}m ${seg}s`;
 
-    // 👉 ACTUALIZA TODO
     document.getElementById("fechaTexto").innerText = fechaTexto;
     document.getElementById("contador").innerText = contadorTexto;
 
@@ -776,9 +730,6 @@ setInterval(() => {
 
 }, 1000);
 
-// ========================
-// MODAL UBICACIÓN
-// ========================
 function abrirUbicacion() {
     document.getElementById("modalUbicacion").classList.add("abierto");
 }
@@ -788,6 +739,17 @@ function cerrarUbicacion() {
 // Cerrar al hacer clic fuera
 document.getElementById("modalUbicacion").addEventListener("click", function(e) {
     if (e.target === this) cerrarUbicacion();
+});
+
+function abrirRegalos() {
+    document.getElementById("modalRegalos").classList.add("abierto");
+}
+function cerrarRegalos() {
+    document.getElementById("modalRegalos").classList.remove("abierto");
+}
+// Cerrar al hacer clic fuera
+document.getElementById("modalRegalos").addEventListener("click", function(e) {
+    if (e.target === this) cerrarRegalos();
 });
 
 function abrirFecha() {
@@ -803,15 +765,10 @@ document.getElementById("modalFecha").addEventListener("click", function(e) {
     if (e.target === this) cerrarFecha();
 });
 
-// ========================
-// OTROS BOTONES
-// ========================
 function confirmar() { window.open("https://docs.google.com/forms/d/e/1FAIpQLSfsMn8v_XeSvzjelmnf-T8TQVyYDdUVpkWKjv3BNHmcH1soIg/viewform?usp=publish-editor"); }
 function regalos()   { alert("Lista de regalos aquí"); }
 
-// ========================
-// REPRODUCTOR iPHONE
-// ========================
+
 const musica     = document.getElementById("musica");
 const iconPlay   = document.getElementById("icon-play");
 const iconPause  = document.getElementById("icon-pause");
