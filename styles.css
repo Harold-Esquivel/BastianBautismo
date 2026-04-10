@@ -286,3 +286,50 @@ body {
         text-align: left !important;
     }
 }
+
+.cuadro-titulo {
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
+    padding: 18px 24px;
+    text-align: center;
+    margin: 20px auto;
+    max-width: 320px;
+    width: 85%;
+}
+
+.cuadro-titulo h1 {
+    font-size: 40px;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    margin: 0 0 6px;
+}
+
+.nombre-bautismo {
+    font-size: 42px;
+    color: #ffcc00;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    margin: 0 0 8px;
+    font-weight: bold;
+}
+
+.separador {
+    color: rgba(255,255,255,0.7);
+    font-size: 16px;
+    margin: 6px 0;
+}
+
+.subtitulo {
+    font-size: 15px;
+    color: rgba(255,255,255,0.9);
+    margin: 0 0 4px;
+}
+
+.nombre-baby {
+    font-size: 32px;
+    color: #ffb6c1;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    margin: 0;
+    font-weight: bold;
+}
